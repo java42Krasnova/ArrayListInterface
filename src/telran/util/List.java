@@ -1,5 +1,6 @@
 package telran.util;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 public interface List<T> {
@@ -38,27 +39,39 @@ public interface List<T> {
 	 * @param pattern
 	 * @return true if there is at least one object equaled to a given pattern^ otherwise - false
 	 */
-	boolean contains(T pattern);
+	default boolean contains(T pattern) {
+		//TODO 
+		return false;
+	}
 	/**
 	 * 
 	 * @param pattern
 	 * @return index of the first occurrence of an object equaled to a given pattern, or -1 of no such an object
 	 * 
 	 */
-	int indexOf(T pattern);
+	default int indexOf(T pattern) {
+		//TODO
+		return -1;
+	};
 	/**
 	 * 
 	 * @param pattern
 	 * @return index of the last occurrence of an object equaled to a given pattern, or -1 of no such an object
 	 * 
 	 */
-	int lastIndexOf(T pattern);
+	default int lastIndexOf(T pattern) {
+		//TODO
+				return -1;
+	}
 	/**
 	 * 
 	 * @param predicate
 	 * @return true in the case the list contains ate list one object matching a condition of a given predicate
 	 */
-	boolean contains(Predicate<T> predicate);
+	default boolean contains(Predicate<T> predicate) {
+		//TODO
+		return false;
+	}
 	/**
 	 * 
 	 * @param pattern
@@ -80,5 +93,48 @@ public interface List<T> {
 	 */
 	 
 	boolean removeIf(Predicate<T> predicate);
+	
+	/**
+	 * sorts array of T objects in accordance to the natural order
+	 */
+	default void sort() {
+		//TODO write default implementation based on the method sort with comarator
+	}
+	
+	/**
+	 * sorts array of T objects in according with a given comparator object comp
+	 */
+	void sort(Comparator<T> comp);
+	/**
+	 * remove first occurence in the list thet is equaled to a given pattern
+	 * 
+	 * @param pattern
+	 * @return reference to being  removed object or null if no such object
+	 */
+	default T remove (T pattern) {
+		//TODO default implementation based on others interfase method 
+		return null;
+	}
+	/**
+	 * removes all object from "this" list that exists in a given list
+	 * @param list
+	 * @return true if at least one object has been removed
+	 */
+	default boolean removeAll(List<T> list)
+	{	
+		
+	return removeIf(new RemoveAllPredicate<>(list));	
+	}
+	/**
+	 * removes all object from "this" list that don't exists in a given list
+	 * @param list
+	 * @return true if at least one object has been removed
+	 */
+	default boolean retainAll(List<T> list)
+	{//TODO
+		
+	return false;	
+	}
+	
 	
 }
