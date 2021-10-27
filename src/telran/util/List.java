@@ -1,5 +1,6 @@
 package telran.util;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
@@ -40,8 +41,9 @@ public interface List<T> {
 	 * @return true if there is at least one object equaled to a given pattern^ otherwise - false
 	 */
 	default boolean contains(T pattern) {
-		//TODO 
-		return false;
+		
+		
+		return indexOf(pattern)>=0;
 	}
 	/**
 	 * 
@@ -50,8 +52,16 @@ public interface List<T> {
 	 * 
 	 */
 	default int indexOf(T pattern) {
-		//TODO
-		return -1;
+		int res = -1;
+		
+		for(int i=0; i<size();i++)
+		{
+			if(get(i).equals(pattern))
+			{
+				return i;
+			}
+		}
+		return res	;
 	};
 	/**
 	 * 
@@ -60,8 +70,15 @@ public interface List<T> {
 	 * 
 	 */
 	default int lastIndexOf(T pattern) {
-		//TODO
-				return -1;
+		int res = -1;
+		for(int i=size()-1; i>=0;i--)
+		{
+			if (get(i).equals(pattern)) 
+			{
+			return i;	
+			}
+		}
+		return res	;
 	}
 	/**
 	 * 
@@ -69,8 +86,8 @@ public interface List<T> {
 	 * @return true in the case the list contains ate list one object matching a condition of a given predicate
 	 */
 	default boolean contains(Predicate<T> predicate) {
-		//TODO
-		return false;
+		
+		return indexOf(predicate)>=0;
 	}
 	/**
 	 * 
@@ -112,8 +129,8 @@ public interface List<T> {
 	 * @return reference to being  removed object or null if no such object
 	 */
 	default T remove (T pattern) {
-		//TODO default implementation based on others interfase method 
-		return null;
+		int index = indexOf(pattern);
+		return index>=0? remove(index):null;
 	}
 	/**
 	 * removes all object from "this" list that exists in a given list
@@ -131,9 +148,9 @@ public interface List<T> {
 	 * @return true if at least one object has been removed
 	 */
 	default boolean retainAll(List<T> list)
-	{//TODO
+	{
 		
-	return false;	
+	return removeIf(new RetainAllPredicate<>(list));	
 	}
 	
 	
