@@ -1,6 +1,5 @@
 package telran.util;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
@@ -41,9 +40,8 @@ public interface List<T> {
 	 * @return true if there is at least one object equaled to a given pattern^ otherwise - false
 	 */
 	default boolean contains(T pattern) {
-		
-		
-		return indexOf(pattern)>=0;
+		//Done
+		return indexOf(pattern)!=-1;
 	}
 	/**
 	 * 
@@ -52,16 +50,8 @@ public interface List<T> {
 	 * 
 	 */
 	default int indexOf(T pattern) {
-		int res = -1;
-		
-		for(int i=0; i<size();i++)
-		{
-			if(get(i).equals(pattern))
-			{
-				return i;
-			}
-		}
-		return res	;
+		//Done
+		return indexOf(new ContainsPredicate<T>(pattern));
 	};
 	/**
 	 * 
@@ -70,15 +60,8 @@ public interface List<T> {
 	 * 
 	 */
 	default int lastIndexOf(T pattern) {
-		int res = -1;
-		for(int i=size()-1; i>=0;i--)
-		{
-			if (get(i).equals(pattern)) 
-			{
-			return i;	
-			}
-		}
-		return res	;
+		//Done
+		return lastIndexOf(new ContainsPredicate<T>(pattern))	;
 	}
 	/**
 	 * 
@@ -86,8 +69,8 @@ public interface List<T> {
 	 * @return true in the case the list contains ate list one object matching a condition of a given predicate
 	 */
 	default boolean contains(Predicate<T> predicate) {
-		
-		return indexOf(predicate)>=0;
+		//Done
+		return indexOf(predicate)!=-1;
 	}
 	/**
 	 * 
@@ -114,8 +97,10 @@ public interface List<T> {
 	/**
 	 * sorts array of T objects in accordance to the natural order
 	 */
+	@SuppressWarnings("unchecked")
 	default void sort() {
-		//TODO write default implementation based on the method sort with comarator
+		//Done
+		sort((Comparator<T>)Comparator.naturalOrder());
 	}
 	
 	/**
@@ -123,14 +108,15 @@ public interface List<T> {
 	 */
 	void sort(Comparator<T> comp);
 	/**
-	 * remove first occurence in the list thet is equaled to a given pattern
+	 * remove first occurrence in the list that is equaled to a given pattern
 	 * 
 	 * @param pattern
 	 * @return reference to being  removed object or null if no such object
 	 */
 	default T remove (T pattern) {
+		//Done
 		int index = indexOf(pattern);
-		return index>=0? remove(index):null;
+		return index!=-1? remove(index):null;
 	}
 	/**
 	 * removes all object from "this" list that exists in a given list
@@ -149,7 +135,7 @@ public interface List<T> {
 	 */
 	default boolean retainAll(List<T> list)
 	{
-		
+		//Done
 	return removeIf(new RetainAllPredicate<>(list));	
 	}
 	
