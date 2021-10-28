@@ -41,6 +41,7 @@ public interface List<T> {
 	 */
 	default boolean contains(T pattern) {
 		//Done
+		// V.R. >-1 is more reliable
 		return indexOf(pattern)!=-1;
 	}
 	/**
@@ -70,6 +71,7 @@ public interface List<T> {
 	 */
 	default boolean contains(Predicate<T> predicate) {
 		//Done
+		// V.R. >-1 is more reliable
 		return indexOf(predicate)!=-1;
 	}
 	/**
@@ -116,7 +118,12 @@ public interface List<T> {
 	default T remove (T pattern) {
 		//Done
 		int index = indexOf(pattern);
+		// V.R. It isn't tested carefully, coverage isn't 100%
 		return index!=-1? remove(index):null;
+		/* V.R. The following is better:
+		 * remove(indexOf(pattern));
+		 * Isn't it? remove() by index knows what to do if index isn't OK
+		 */
 	}
 	/**
 	 * removes all object from "this" list that exists in a given list
