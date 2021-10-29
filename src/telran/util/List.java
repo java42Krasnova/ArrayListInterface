@@ -40,9 +40,7 @@ public interface List<T> {
 	 * @return true if there is at least one object equaled to a given pattern^ otherwise - false
 	 */
 	default boolean contains(T pattern) {
-		//Done
-		// V.R. >-1 is more reliable
-		return indexOf(pattern)!=-1;
+		return indexOf(pattern)>-1;
 	}
 	/**
 	 * 
@@ -51,7 +49,6 @@ public interface List<T> {
 	 * 
 	 */
 	default int indexOf(T pattern) {
-		//Done
 		return indexOf(new ContainsPredicate<T>(pattern));
 	};
 	/**
@@ -61,7 +58,6 @@ public interface List<T> {
 	 * 
 	 */
 	default int lastIndexOf(T pattern) {
-		//Done
 		return lastIndexOf(new ContainsPredicate<T>(pattern))	;
 	}
 	/**
@@ -70,9 +66,7 @@ public interface List<T> {
 	 * @return true in the case the list contains ate list one object matching a condition of a given predicate
 	 */
 	default boolean contains(Predicate<T> predicate) {
-		//Done
-		// V.R. >-1 is more reliable
-		return indexOf(predicate)!=-1;
+		return indexOf(predicate)>-1;
 	}
 	/**
 	 * 
@@ -117,13 +111,9 @@ public interface List<T> {
 	 */
 	default T remove (T pattern) {
 		//Done
-		int index = indexOf(pattern);
-		// V.R. It isn't tested carefully, coverage isn't 100%
-		return index!=-1? remove(index):null;
-		/* V.R. The following is better:
-		 * remove(indexOf(pattern));
-		 * Isn't it? remove() by index knows what to do if index isn't OK
-		 */
+		
+		return remove(indexOf(pattern));
+		
 	}
 	/**
 	 * removes all object from "this" list that exists in a given list
@@ -142,8 +132,8 @@ public interface List<T> {
 	 */
 	default boolean retainAll(List<T> list)
 	{
-		//Done
-	return removeIf(new RetainAllPredicate<>(list));	
+	return removeIf(new RetainAllPredicate<>(list));
+	
 	}
 	
 	
