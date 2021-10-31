@@ -111,7 +111,7 @@ public interface List<T> {
 	 */
 	default T remove (T pattern) {
 		//Done
-		
+	
 		return remove(indexOf(pattern));
 		
 	}
@@ -132,7 +132,7 @@ public interface List<T> {
 	 */
 	default boolean retainAll(List<T> list)
 	{
-	return removeIf(new RetainAllPredicate<>(list));
+	return removeIf(new RemoveAllPredicate<>(list).negate());
 	
 	}
 	
