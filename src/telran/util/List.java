@@ -40,7 +40,8 @@ public interface List<T> {
 	 * @return true if there is at least one object equaled to a given pattern^ otherwise - false
 	 */
 	default boolean contains(T pattern) {
-		return indexOf(pattern)>-1;
+		//O[N] for array and linked list
+		return indexOf(pattern)>=0;
 	}
 	/**
 	 * 
@@ -49,6 +50,7 @@ public interface List<T> {
 	 * 
 	 */
 	default int indexOf(T pattern) {
+		//O[N] 
 		return indexOf(new ContainsPredicate<T>(pattern));
 	};
 	/**
@@ -58,6 +60,7 @@ public interface List<T> {
 	 * 
 	 */
 	default int lastIndexOf(T pattern) {
+		//O[N] 
 		return lastIndexOf(new ContainsPredicate<T>(pattern))	;
 	}
 	/**
@@ -66,6 +69,7 @@ public interface List<T> {
 	 * @return true in the case the list contains ate list one object matching a condition of a given predicate
 	 */
 	default boolean contains(Predicate<T> predicate) {
+		//O[N] 
 		return indexOf(predicate)>-1;
 	}
 	/**
@@ -95,7 +99,7 @@ public interface List<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	default void sort() {
-		//Done
+		//O[N* logN] 
 		sort((Comparator<T>)Comparator.naturalOrder());
 	}
 	
@@ -110,8 +114,7 @@ public interface List<T> {
 	 * @return reference to being  removed object or null if no such object
 	 */
 	default T remove (T pattern) {
-		//Done
-	
+	//
 		return remove(indexOf(pattern));
 		
 	}
@@ -122,7 +125,12 @@ public interface List<T> {
 	 */
 	default boolean removeAll(List<T> list)
 	{	
-		
+		//O[N](need to update remove if for array)
+		if(this == list)
+		{
+			clear();
+			return true;
+		}
 	return removeIf(new RemoveAllPredicate<>(list));	
 	}
 	/**
@@ -135,6 +143,26 @@ public interface List<T> {
 	return removeIf(new RemoveAllPredicate<>(list).negate());
 	
 	}
-	
+	/**
+	 * searches for pattern in sorted list by given comparator
+	 * @param pattern
+	 * @param comp
+	 * @return the same index as the standart binarySearch in the class array
+	 */
+	int sortedSearch(T pattern, Comparator<T> comp);
+	/**
+	 * 
+	 * @param pattern
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	default int sortedSearch(T pattern) {
+		return sortedSearch(pattern, (Comparator<T>)Comparator.naturalOrder());
+	}
+	/**
+	 * remove all elements
+	 * after clear all size will be 0;
+	 */
+	void clear();
 	
 }
