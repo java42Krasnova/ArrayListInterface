@@ -52,7 +52,8 @@ public interface List<T>  extends Iterable<T>{
 	default int indexOf(T pattern) {
 		//O[N] 
 		// TODO write code without class Equals pattern
-		return -1;
+		//DONE!!
+		return indexOf(el -> el.equals(pattern));
 	};
 	/**
 	 * 
@@ -63,8 +64,8 @@ public interface List<T>  extends Iterable<T>{
 	default int lastIndexOf(T pattern) {
 		//O[N] 
 		// TODO write code without class Equals pattern
-
-		return -1	;
+		//Done!!
+		return lastIndexOf(el -> el.equals(pattern));
 	}
 	/**
 	 * 
@@ -128,16 +129,18 @@ public interface List<T>  extends Iterable<T>{
 	 */
 	default boolean removeAll(List<T> list)
 	{	
+		//TODO
+		//Done
 		//O[N](need to update remove if for array)
 		if(this == list)
 		{
 			clear();
 			return true;
 		}
-		// TODO rewrite code code based on removeIf but wuthout additional Precat
-
-	return false;	
+		
+	return removeIf(el-> list.contains(el) );
 	}
+	
 	/**
 	 * removes all object from "this" list that don't exists in a given list
 	 * @param list
@@ -145,9 +148,9 @@ public interface List<T>  extends Iterable<T>{
 	 */
 	default boolean retainAll(List<T> list)
 	{
-		// TODO rewrite code code based on removeIf but wuthout additional Precat
-
-	return false;
+		// TODO rewrite code code based on removeIf but without additional predicate class
+		//Done
+	return removeIf(el -> !list.contains(el));
 	
 	}
 	/**
