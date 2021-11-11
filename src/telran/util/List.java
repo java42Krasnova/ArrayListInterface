@@ -2,7 +2,7 @@ package telran.util;
 
 import java.util.Comparator;
 import java.util.function.Predicate;
-
+// V.R. All is OK.
 public interface List<T>  extends Iterable<T>{
 /**
  * adds a given element at end of list
